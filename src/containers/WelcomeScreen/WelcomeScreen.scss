@@ -1,0 +1,62 @@
+.cook-item {
+  border: 1px solid #787877;
+  border-radius: 10px;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.welcome {
+  .ant-select-selection-multiple {
+    white-space: nowrap;
+    height: 100px;
+    overflow: auto;
+  }
+  .ant-select-selection-overflow {
+    min-height: 40px;
+  }
+  .ant-select-selection-overflow-item {
+    align-self: auto !important;
+  }
+  .ant-select-multiple .ant-select-selection-item {
+    height: 40px;
+    font-size: 16px;
+  }
+  .ant-select-selection-item-remove {
+    align-self: center;
+  }
+  .ant-select-multiple {
+    .ant-select-selection-item-content {
+      align-self: center;
+    }
+  }
+  .ol-number {
+    background: #fff;
+    height: 30px;
+    width: 30px;
+    border-radius: 100px;
+    text-align: center;
+    color: #000;
+  }
+  .ant-form {
+    font-size: 18px;
+    color: #fff;
+  }
+  .ant-radio-wrapper {
+    color: #fff;
+    font-size: 18px;
+  }
+  .button-change {
+    height: 50px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+.ant-modal-content {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+.ant-modal-header {
+  background-color: rgba(255, 255, 255, -0.85);
+}

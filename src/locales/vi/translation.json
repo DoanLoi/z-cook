@@ -1,0 +1,23 @@
+{
+  "BackToHome": "Về trang chủ",
+  "PermissionDenied": "Bạn không có quyền được truy cập trang này",
+  "PageNotFound": "Trang bạn truy cập hiện không tồn tại",
+  "SomethingWentWrong": "Hệ thống hiện đang có lỗi, vui lòng thử lại sau",
+  "Error": "Có lỗi",
+  "Logout": "Đăng xuất",
+  "WelcomeText": "Chào mừng bạn đến với Teko Admin Boilerplate",
+  "Home": "Trang chủ",
+  "TotalRecords": "Tổng số bản ghi",
+  "Brands": "Thương hiệu",
+  "BrandList": "Danh sách thương hiệu",
+  "BrandCreate": "Thêm thương hiệu",
+  "Name": "Tên",
+  "Code": "Mã",
+  "Status": "Trạng thái",
+  "Active": "Hiệu lực",
+  "Inactive": "Vô hiệu",
+  "EnterName": "Nhập tên",
+  "SelectStatus": "Chọn trạng thái",
+  "Search": "Tìm kiếm",
+  "SwitchTheme": "Thay đổi theme"
+}

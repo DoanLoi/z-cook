@@ -1,0 +1,23 @@
+{
+  "BackToHome": "Back to Home",
+  "PermissionDenied": "You don't have permission to access this page",
+  "PageNotFound": "The page you visited does not exist",
+  "SomethingWentWrong": "Something went wrong, please try again later",
+  "Error": "Error",
+  "Logout": "Logout",
+  "WelcomeText": "Welcome to Teko Admin Boilerplate",
+  "Home": "Home",
+  "TotalRecords": "Total Records",
+  "Brands": "Brands",
+  "BrandList": "List of Brands",
+  "BrandCreate": "New Brand",
+  "Name": "Name",
+  "Code": "Code",
+  "Status": "Status",
+  "Active": "Active",
+  "Inactive": "Inactive",
+  "EnterName": "Enter name",
+  "SelectStatus": "Select status",
+  "Search": "Search",
+  "SwitchTheme": "Switch theme"
+}
