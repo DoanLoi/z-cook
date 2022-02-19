@@ -442,8 +442,10 @@ const EditMenu: React.FC<{
                             fontWeight: 'bold',
                           }}
                         >
-                          <ClockCircleOutlined className="mr-half" />
-                          {cook?.time}
+                          <Paragraph ellipsis={{ rows: 1, expandable: false }}>
+                            <ClockCircleOutlined className="mr-half" />
+                            {cook?.time || `30 phút`}
+                          </Paragraph>
                         </div>
                         <img
                           onClick={() => onDeleteDish(cook.id)}
@@ -513,7 +515,10 @@ const EditMenu: React.FC<{
                             fontWeight: 'bold',
                           }}
                         >
-                          <ClockCircleOutlined className="mr-half" /> 30m
+                          <Paragraph ellipsis={{ rows: 1, expandable: false }}>
+                            <ClockCircleOutlined className="mr-half" />{' '}
+                            {cook?.time || '30 phút'}
+                          </Paragraph>
                         </div>
                         <img
                           onClick={() => onDeleteDish(cook.id)}
@@ -584,7 +589,10 @@ const EditMenu: React.FC<{
                             fontWeight: 'bold',
                           }}
                         >
-                          <ClockCircleOutlined className="mr-half" /> 30m
+                          <Paragraph ellipsis={{ rows: 1, expandable: false }}>
+                            <ClockCircleOutlined className="mr-half" />{' '}
+                            {cook?.time || `30 phút`}
+                          </Paragraph>
                         </div>
                         <img
                           onClick={() => onDeleteDish(cook.id)}
@@ -764,7 +772,7 @@ const DetailDish: React.FC<{ id: string }> = ({ id }) => {
             <Col className="px-base" span={24}>
               <div>
                 {mealDetail?.time && (
-                  <span>
+                  <span style={{ fontSize: 16 }}>
                     <ClockCircleOutlined className="mr-half" />{' '}
                     {mealDetail?.time}
                   </span>
@@ -776,7 +784,7 @@ const DetailDish: React.FC<{ id: string }> = ({ id }) => {
                 >
                   NGUYÊN LIỆU
                   {mealDetail?.people
-                    ? `(dành cho ${mealDetail.people} người)`
+                    ? ` (dành cho ${mealDetail.people} người)`
                     : ''}
                 </div>
                 {mealDetail?.ingredients?.map((ingredient: any) => (
@@ -793,11 +801,11 @@ const DetailDish: React.FC<{ id: string }> = ({ id }) => {
               CÔNG THỨC
             </div>
             {mealDetail?.steps?.map((step: any, index: number) => (
-              <>
-                <span>Bước {index + 1}:</span>
+              <div className="mb-half">
+                <span>Bước {index + 1}: </span>
                 <span>{step.description}</span>
                 <br />
-              </>
+              </div>
             ))}
           </div>
         </div>

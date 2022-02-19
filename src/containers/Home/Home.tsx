@@ -41,7 +41,9 @@ const Home = () => {
     }
   };
   const onBackScreen = () => {
-    setStep(step - 1);
+    if (step === ISTEP.MENU_HISTORY) {
+      setStep(ISTEP.MENU_TAB);
+    } else setStep(step - 1);
   };
 
   const onChangeTab = (value: number) => {

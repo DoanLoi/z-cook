@@ -94,10 +94,13 @@ const Ingredient: React.FC<{
                       }}
                     >
                       <Col span={12}>
-                        {stringHelpers.jsUcfirst(ingredients[key].name)}
+                        {stringHelpers.jsUcfirst(ingredients[key].name.trim())}
                       </Col>
                       <Col span={12} style={{ textAlign: 'end' }}>
-                        {ingredients[key].quantity} {ingredients[key].unit}
+                        {ingredients[key].quantity.toString().length < 5
+                          ? ingredients[key].quantity
+                          : '1/3'}{' '}
+                        {ingredients[key].unit}
                       </Col>
                     </Row>
                   </div>
