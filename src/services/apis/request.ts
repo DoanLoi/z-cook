@@ -9,7 +9,7 @@ const catalogClient = axios.create({
 });
 
 const API = axios.create({
-  baseURL: 'http://10.10.20.37:8000',
+  baseURL: 'http://139.180.211.121:8050',
 });
 
 const getAuthorization = () => {
