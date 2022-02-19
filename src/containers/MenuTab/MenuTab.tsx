@@ -259,7 +259,7 @@ const WelcomeScreen: React.FC<{
             onClick={onNextWelcomeScreen}
             className="button-cook"
           >
-            TẠO MENU
+            Tạo menu
           </Button>
         )}
       </div>
