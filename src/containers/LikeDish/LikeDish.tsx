@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Image, Row, Col, Button, Spin, Typography } from 'antd';
-import { IDish } from 'interfaces';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { foodHooks } from 'hooks';
 import './LikeDish.scss';

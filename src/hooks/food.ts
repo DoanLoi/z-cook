@@ -42,7 +42,7 @@ const useMeal = () => {
     try {
       setLoadingDetail(true);
       const res = await foodServices.getDetailMeal(id);
-      setMealDetail(res.data.data.meals);
+      setMealDetail(res.data.data);
     } finally {
       setLoadingDetail(false);
     }

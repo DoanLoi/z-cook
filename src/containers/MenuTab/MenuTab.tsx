@@ -46,101 +46,6 @@ enum ICategory {
   DRINK,
 }
 
-const menuDefault: IDish[] = [
-  {
-    id: '1',
-    image: 'https://thammythucuc.vn/wp-content/uploads/2018/06/1.jpg',
-    name: 'Khoai tây',
-    category: 1,
-    ingredients: [
-      {
-        src: '4 quả mướp đắng dài (8 quả nhỏ)',
-        description: null,
-        quantitative: 4,
-        unit: 'quả',
-        name: 'mướp đắng dài (8 quả nhỏ)',
-      },
-      {
-        src: '450 g thịt heo bằm (1lb)',
-        description: null,
-        quantitative: 450,
-        unit: 'gram',
-        name: 'thịt heo bằm (1lb)',
-      },
-      {
-        src: '2 củ hành tây tím nhỏ',
-        description: null,
-        quantitative: 2,
-        unit: 'củ',
-        name: 'hành tây tím nhỏ',
-      },
-      {
-        src: '100 g hành lá',
-        description: null,
-        quantitative: 100,
-        unit: 'gram',
-        name: 'hành lá',
-      },
-      {
-        src: '1 muỗng cà phê đường',
-        description: null,
-        quantitative: 1,
-        unit: 'muỗng cà phê',
-        name: 'đường',
-      },
-      {
-        src: '1 muỗng cà phê tiêu',
-        description: null,
-        quantitative: 1,
-        unit: 'muỗng cà phê',
-        name: 'tiêu',
-      },
-      {
-        src: '4 muỗng canh nước mắm',
-        description: null,
-        quantitative: 4,
-        unit: 'muỗng súp',
-        name: 'nước mắm',
-      },
-      {
-        src: '1.5 l nước lọc+5 muỗng canh nước mắm+1 muỗng canh đường',
-        description: null,
-        quantitative: 1.5,
-        unit: 'lít',
-        name: 'nước lọc+5 muỗng canh nước mắm+1 muỗng canh đường',
-      },
-    ],
-  },
-  {
-    id: '2',
-    image:
-      'https://hinh365.com/wp-content/uploads/2020/06/nhung-hinh-anh-dep-doc-dao-duoc-chon-loc-ve-chu-de-cu-ca-rot-ngay-19.jpg',
-    name: 'Cà rốt',
-    category: 1,
-  },
-  {
-    id: '3',
-    image:
-      'https://photo-cms-baonghean.zadn.vn/w607/Uploaded/2022/tuqzxgazsnzm/2018_11_08/143638-1.jpg',
-    name: 'Thịt lợn',
-    category: 2,
-  },
-  {
-    id: '4',
-    image:
-      'https://hinh365.com/wp-content/uploads/2020/06/nhung-hinh-anh-dep-doc-dao-duoc-chon-loc-ve-chu-de-cu-ca-rot-ngay-19.jpg',
-    name: 'Cà rốt',
-    category: 0,
-  },
-  {
-    id: '5',
-    image:
-      'https://photo-cms-baonghean.zadn.vn/w607/Uploaded/2022/tuqzxgazsnzm/2018_11_08/143638-1.jpg',
-    name: 'Thịt lợn',
-    category: 1,
-  },
-];
-
 const WelcomeScreen: React.FC<{
   onNextScreen: () => void;
   onBackScreen: () => void;
@@ -830,14 +735,21 @@ const DetailDish: React.FC<{ id: string }> = ({ id }) => {
   return (
     <>
       {loadingDetail && !mealDetail ? (
-        <Spin />
+        <Spin
+          className="d-flex"
+          style={{
+            marginTop: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
       ) : (
         <div style={{ marginTop: 30, fontSize: 14 }}>
           <Row gutter={[10, 10]} className="mt-base">
             <Col span={24}>
               <Image src={mealDetail?.image}></Image>
             </Col>
-            <Col className="p-base" span={24}>
+            <Col className="px-base" span={24}>
               <div
                 style={{
                   fontSize: 25,
@@ -848,38 +760,44 @@ const DetailDish: React.FC<{ id: string }> = ({ id }) => {
                 {mealDetail?.name}
               </div>
             </Col>
-            <Col className="p-base" span={24}>
+            <Col className="px-base" span={24}>
               <div>
-                <span>500Kcal</span>
-                <span style={{ marginLeft: 24 }}>
-                  <ClockCircleOutlined className="mr-half" /> 30 phút
-                </span>
+                {mealDetail?.time && (
+                  <span>
+                    <ClockCircleOutlined className="mr-half" />{' '}
+                    {mealDetail?.time}
+                  </span>
+                )}
+
                 <div
-                  className="mt-base mb-base"
+                  className=" mb-base"
                   style={{ fontSize: 18, fontWeight: 'bold' }}
                 >
-                  NGUYÊN LIỆU (dành cho 4-5 người)
+                  NGUYÊN LIỆU
+                  {mealDetail?.people
+                    ? `(dành cho ${mealDetail.people} người)`
+                    : ''}
                 </div>
                 {mealDetail?.ingredients?.map((ingredient: any) => (
-                  <div>
-                    - {ingredient.number} {ingredient.unit} {ingredient.name}
-                  </div>
+                  <div>- {ingredient.src}</div>
                 ))}
               </div>
             </Col>
           </Row>
-          <div className="mt-base" style={{ fontSize: 18, fontWeight: 'bold' }}>
-            CÔNG THỨC
-          </div>
-          <div>
-            1. Sơ chế vịt Để khử mùi hôi của vịt, bạn dùng muối và một vài lát
-            chanh chà xát lên khắp thân vịt. Sau đó, rửa sạch lại với nước nhiều
-            lần, để ráo rồi chặt thành khúc vừa ăn.2. Sơ chế vịt Để khử mùi hôi
-            của vịt, bạn dùng muối và một vài lát chanh chà xát lên khắp thân
-            vịt. Sau đó, rửa sạch lại với nước nhiều lần, để ráo rồi chặt thành
-            khúc vừa ăn. 3. Sơ chế vịt Để khử mùi hôi của vịt, bạn dùng muối và
-            một vài lát chanh chà xát lên khắp thân vịt. Sau đó, rửa sạch lại
-            với nước nhiều lần, để ráo rồi chặt thành khúc vừa ăn
+          <div className="p-base">
+            <div
+              className="mt-base"
+              style={{ fontSize: 18, fontWeight: 'bold' }}
+            >
+              CÔNG THỨC
+            </div>
+            {mealDetail?.steps?.map((step: any, index: number) => (
+              <>
+                <span>Bước {index + 1}:</span>
+                <span>{step.description}</span>
+                <br />
+              </>
+            ))}
           </div>
         </div>
       )}

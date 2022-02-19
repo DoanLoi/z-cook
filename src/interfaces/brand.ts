@@ -36,11 +36,13 @@ export interface IDish {
   image: string;
   id: string;
   category?: number | null;
+  time?: string;
+  people?: string;
+  steps?: { name: string }[];
   ingredients?: {
     name: string;
     unit: string;
-    quantitative: number;
-
+    quantity: number;
     src: string;
     description: string | null;
   }[];
