@@ -87,7 +87,7 @@ const WelcomeScreen: React.FC<{
       historyJSON = JSON.parse(history) as { [key: string]: any };
     }
     const day = moment().format('DD/MM/YYYY') as string;
-    const time = moment().format('hh:mm:ss') as string;
+    const time = moment().format('HH:mm:ss') as string;
     //@ts-ignore
     if (!historyJSON[day]) {
       //@ts-ignore
@@ -139,7 +139,7 @@ const WelcomeScreen: React.FC<{
     >
       <div
         style={{
-          height: '85%',
+          height: id ? '100%' : '85%',
           display: 'flex',
           flexDirection: 'column',
           overflowY: 'scroll',
@@ -222,25 +222,17 @@ const WelcomeScreen: React.FC<{
           </Tabs>
         </div>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {stepWelcome !== IStepWelcome.RANDOM_MENU ? (
-          <>
-            {id ? (
-              <Button
-                style={{ position: 'relative', width: '80%' }}
-                onClick={() => setId(undefined)}
-                className="button-cook"
-              >
-                Quay lại
-              </Button>
-            ) : (
+      {!id && (
+        <div
+          style={{
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {stepWelcome !== IStepWelcome.RANDOM_MENU ? (
+            <>
               <Button
                 style={{ position: 'relative', width: '80%' }}
                 onClick={() => {
@@ -251,18 +243,18 @@ const WelcomeScreen: React.FC<{
               >
                 Lưu &amp; Xem nguyên liệu
               </Button>
-            )}
-          </>
-        ) : (
-          <Button
-            style={{ position: 'relative', width: '80%' }}
-            onClick={onNextWelcomeScreen}
-            className="button-cook"
-          >
-            Tạo menu
-          </Button>
-        )}
-      </div>
+            </>
+          ) : (
+            <Button
+              style={{ position: 'relative', width: '80%' }}
+              onClick={onNextWelcomeScreen}
+              className="button-cook"
+            >
+              Tạo menu
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
@@ -294,16 +286,20 @@ const RandomeMenu: React.FC<{
               className="ml-half"
               preview={false}
               style={{ width: 50, height: 50, borderRadius: 100 }}
-              src={daily}
+              src={
+                'https://img-global.cpcdn.com/recipes/041d7aafcc509472/680x482cq70/mỳ-y-sốt-nấm-kem-mam-cơm-nhỏ-của-trang-35-recipe-main-photo.jpg'
+              }
             />
             <span className="ml-half">Mâm cơm hàng ngày</span>
           </Radio>
-          <Radio value={ICategory.DRINK}>
+          <Radio value={ICategory.DRINK} disabled>
             <Image
               preview={false}
               className="ml-half"
               style={{ width: 50, height: 50, borderRadius: 100 }}
-              src={drink}
+              src={
+                'https://img-global.cpcdn.com/recipes/2b2e0e3d316c97a0/680x482cq70/n%E1%BA%A5m-xao-rau-c%E1%BB%A7-chay-recipe-main-photo.jpg'
+              }
             />
             <span className="ml-half">Món nhậu</span>
           </Radio>
@@ -341,7 +337,7 @@ const EditMenu: React.FC<{
   const { loading, meal, getMeal } = foodHooks.useMeal();
   const [selectedDish, setSelectedDish] = useState<any[]>([]);
 
-  useEffect(() => {
+  const getRandomMenu = () => {
     const allergyIngredients = localStorage.getItem('dislike') || '[]';
     const allergyIngredientsJSON = JSON.parse(allergyIngredients);
     const likeDeal = localStorage.getItem('like') || '[]';
@@ -363,6 +359,10 @@ const EditMenu: React.FC<{
       current_menu: currentMenu,
       history: historyID.length ? historyID[0] : [],
     });
+  };
+
+  useEffect(() => {
+    getRandomMenu();
   }, []);
 
   const openModalAddDish = (type: IType) => {
@@ -409,13 +409,13 @@ const EditMenu: React.FC<{
           <div className="p-base">
             <Row className="mt-half" justify="center" align="middle">
               <Col className="text-center" span={24}>
-                <Button className="button-change">
+                <Button className="button-change" onClick={getRandomMenu}>
                   <ReloadOutlined />
                   Đổi menu
                 </Button>
               </Col>
             </Row>
-            <div style={{ marginTop: 20 }}>
+            <div style={{ marginTop: 10 }}>
               <span className="mr-base" style={{ fontSize: 20 }}>
                 Món mặn
               </span>
@@ -442,7 +442,8 @@ const EditMenu: React.FC<{
                             fontWeight: 'bold',
                           }}
                         >
-                          <ClockCircleOutlined className="mr-half" /> 30m
+                          <ClockCircleOutlined className="mr-half" />
+                          {cook?.time}
                         </div>
                         <img
                           onClick={() => onDeleteDish(cook.id)}
@@ -450,8 +451,8 @@ const EditMenu: React.FC<{
                             height: 20,
                             width: 20,
                             position: 'absolute',
-                            top: -6,
-                            right: 2,
+                            top: -8,
+                            right: -3,
                           }}
                           src={closeIcon}
                         />
@@ -485,7 +486,7 @@ const EditMenu: React.FC<{
                 </Row>
               </div>
             </div>
-            <div style={{ marginTop: 40 }}>
+            <div style={{ marginTop: 15 }}>
               <span className="mr-base" style={{ fontSize: 20 }}>
                 Canh/rau
               </span>
@@ -520,8 +521,8 @@ const EditMenu: React.FC<{
                             height: 20,
                             width: 20,
                             position: 'absolute',
-                            top: -6,
-                            right: 2,
+                            top: -8,
+                            right: -3,
                           }}
                           src={closeIcon}
                         />
@@ -556,7 +557,7 @@ const EditMenu: React.FC<{
               </div>
             </div>
 
-            <div style={{ marginTop: 40 }}>
+            <div style={{ marginTop: 15 }}>
               <span className="mr-base" style={{ fontSize: 20 }}>
                 Tráng miệng
               </span>
@@ -591,8 +592,8 @@ const EditMenu: React.FC<{
                             height: 20,
                             width: 20,
                             position: 'absolute',
-                            top: -6,
-                            right: 2,
+                            top: -8,
+                            right: -3,
                           }}
                           src={closeIcon}
                         />
@@ -770,7 +771,7 @@ const DetailDish: React.FC<{ id: string }> = ({ id }) => {
                 )}
 
                 <div
-                  className=" mb-base"
+                  className="mb-half"
                   style={{ fontSize: 18, fontWeight: 'bold' }}
                 >
                   NGUYÊN LIỆU

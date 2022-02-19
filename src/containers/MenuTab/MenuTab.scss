@@ -54,7 +54,7 @@
     display: flex;
   }
   .button-change {
-    height: 50px;
+    height: 40px;
     border-radius: 100px;
     background: rgba(255, 255, 255, 0.8);
     font-size: 18px;
@@ -69,4 +69,11 @@
 }
 .active {
   border: 3px solid #2881c9 !important;
+}
+
+.ant-modal {
+  top: 20px;
+}
+.ant-modal-body {
+  padding-top: 0px !important ;
 }

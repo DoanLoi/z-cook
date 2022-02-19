@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { Button, Row, Col } from 'antd';
+import React from 'react';
+import { Row, Col } from 'antd';
 import {
   SettingOutlined,
   SnippetsOutlined,
@@ -96,7 +96,7 @@ const Ingredient: React.FC<{
                       <Col span={12}>
                         {stringHelpers.jsUcfirst(ingredients[key].name)}
                       </Col>
-                      <Col span={12}>
+                      <Col span={12} style={{ textAlign: 'end' }}>
                         {ingredients[key].quantity} {ingredients[key].unit}
                       </Col>
                     </Row>

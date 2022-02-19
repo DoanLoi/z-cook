@@ -19,6 +19,8 @@ const MenuHistory: React.FC<{
   const [historyMenu, setHistoryMenu] = useState<{
     [key: string]: { [key: string]: any };
   }>();
+
+  // const onClickDetailDish = id => {};
   useEffect(() => {
     const historyMenu = localStorage.getItem('history');
     if (historyMenu) {
@@ -92,6 +94,7 @@ const MenuHistory: React.FC<{
                                   return (
                                     <Col span={24}>
                                       <Row
+                                        // onClick={}
                                         className="mt-half"
                                         style={{
                                           background: '#fff',

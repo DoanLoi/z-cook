@@ -48,7 +48,7 @@ const SplashScreen: React.FC<{ onNextScreen: () => void }> = ({
         }}
       >
         <Button className="button-cook" onClick={onNextScreen}>
-          Tạo mâm cơm
+          Bắt đầu
         </Button>
       </div>
     </div>
