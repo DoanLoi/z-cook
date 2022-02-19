@@ -1,6 +1,7 @@
 .cook-item {
   border: 1px solid #787877;
   border-radius: 10px;
+  background: #fff;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -45,6 +46,12 @@
   .ant-radio-wrapper {
     color: #fff;
     font-size: 18px;
+    display: flex;
+    align-items: center;
+  }
+  .ant-radio-wrapper span {
+    align-items: center;
+    display: flex;
   }
   .button-change {
     height: 50px;
@@ -59,4 +66,7 @@
 }
 .ant-modal-header {
   background-color: rgba(255, 255, 255, -0.85);
+}
+.active {
+  border: 3px solid #2881c9 !important;
 }

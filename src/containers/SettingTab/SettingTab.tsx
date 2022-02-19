@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button, Row, Col, Select, Form } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import './SettingTab.scss';
+import { foodHooks } from 'hooks';
+import { stringHelpers } from 'helpers';
 
 enum IStepWelcome {
   WELCOME1,
@@ -13,11 +16,32 @@ const SettingTab: React.FC<{
   onNextScreen: () => void;
   onBackScreen: () => void;
 }> = ({ onNextScreen, onBackScreen }) => {
+  const ref = useRef(null);
+  const [form] = Form.useForm();
+  const { ingredients, loading } = foodHooks.useIngredient();
+
+  const onSaveUser = (values: any) => {
+    localStorage.setItem('dislike', JSON.stringify(values));
+  };
+
+  useEffect(() => {
+    const user = localStorage.getItem('dislike');
+    if (user) {
+      const userJSON = JSON.parse(user) as {
+        allergyIngredients: string;
+      };
+      form.setFieldsValue({
+        allergyIngredients: userJSON?.allergyIngredients,
+      });
+    }
+  }, []);
+
   return (
     <div
+      ref={ref}
       className="welcome"
       style={{
-        height: '100vh',
+        height: '100%',
         width: '100%',
         background: '#3FC979',
         display: 'flex',
@@ -26,66 +50,58 @@ const SettingTab: React.FC<{
     >
       <div
         style={{
-          height: '70vh',
+          height: '85%',
           display: 'flex',
           flexDirection: 'column',
           overflowY: 'scroll',
           scrollbarWidth: 'none',
         }}
       >
-        <div className="p-base mt-base">
-          <div style={{ color: '#fff', fontSize: 35, fontWeight: 'bold' }}>
-            Z-Cook
-          </div>
-          <span>Hôm nay ăn gì?</span>
-
-          <>
-            <div style={{ marginTop: 48, fontSize: 20, fontWeight: 'bold' }}>
-              Thông tin cần chú ý
+        <div className="px-base mt-base">
+          <div className="text-center" style={{ position: 'relative' }}>
+            <div
+              style={{
+                color: '#fff',
+                fontSize: 30,
+                fontWeight: 'bold',
+                lineHeight: 1,
+              }}
+            >
+              Z-Cook
             </div>
-            <Form>
-              <Row className="mt-base" align="middle">
-                <Col span={4}>
-                  <div
-                    style={{ display: 'inline-block' }}
-                    className="d-flex justify-content-center align-items-center ol-number"
-                  >
-                    1
-                  </div>
-                </Col>
-                <Col span={20}>
-                  Bạn và gia đình có dị ứng/ không ăn được nguyên liệu nào?
-                </Col>
-              </Row>
-              <Form.Item name="favoriteIngredients">
-                <Select mode="multiple" className="mt-base w-100">
-                  {['Cà chua', 'Nước chè', 'Cà phê'].map(item => (
-                    <Select.Option value={item}>{item}</Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-              <Row className="mt-base" align="middle">
-                <Col span={4}>
-                  <div
-                    style={{ display: 'inline-block' }}
-                    className="d-flex justify-content-center align-items-center ol-number"
-                  >
-                    2
-                  </div>
-                </Col>
-                <Col span={20}>
-                  Bạn và gia đình thích món ăn chế biến từ nguyên liệu gì?
-                </Col>
-              </Row>
+            <span>Hôm nay ăn gì?</span>
+            <ArrowLeftOutlined
+              style={{
+                position: 'absolute',
+                left: 10,
+                top: 10,
+                fontSize: 30,
+                fontWeight: 'bold',
+              }}
+              onClick={onBackScreen}
+            />
+          </div>
+
+          <div style={{ marginTop: 40 }}>
+            <Form form={form} onFinish={onSaveUser}>
+              <div>
+                Bạn và gia đình có dị ứng/ không ăn được nguyên liệu nào?
+              </div>
               <Form.Item name="allergyIngredients">
-                <Select mode="multiple" className="mt-base w-100">
-                  {['Cà chua', 'Nước chè', 'Cà phê'].map(item => (
-                    <Select.Option value={item}>{item}</Select.Option>
+                <Select
+                  loading={loading}
+                  mode="multiple"
+                  className="mt-base w-100"
+                >
+                  {ingredients.map(item => (
+                    <Select.Option value={item.name}>
+                      {stringHelpers.jsUcfirst(item.name)}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
             </Form>
-          </>
+          </div>
         </div>
       </div>
       <div
@@ -98,7 +114,10 @@ const SettingTab: React.FC<{
       >
         <Button
           style={{ position: 'relative' }}
-          onClick={onNextScreen}
+          onClick={() => {
+            onNextScreen();
+            form.submit();
+          }}
           className="button-cook"
         >
           Tiếp theo

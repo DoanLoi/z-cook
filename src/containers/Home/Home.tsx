@@ -2,48 +2,72 @@ import React, { useState } from 'react';
 import { Tabs } from 'antd';
 import SplashScreen from 'containers/SplashScreen';
 import WelcomeScreen from 'containers/WelcomeScreen';
-import { SettingOutlined, HomeOutlined } from '@ant-design/icons';
+import {
+  SettingOutlined,
+  HomeOutlined,
+  CalendarOutlined,
+} from '@ant-design/icons';
 import './Home.scss';
 import SettingTab from 'containers/SettingTab';
 import MenuTab from 'containers/MenuTab';
+import MenuHistory from 'containers/MenuHistory';
+import LikeDish from 'containers/LikeDish/LikeDish';
+import Ingredient from 'containers/Ingredient';
 
-enum ISTEP {
+export enum ISTEP {
   SPLASH,
   WELCOME,
   SETTING_TAB,
+  LIKE_DISH,
   MENU_TAB,
+  INGREDIENT,
+  MENU_HISTORY,
 }
 
 const { TabPane } = Tabs;
 
 const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [ingredients, setIngredient] = useState<any[]>([]);
   const onNextScreen = () => {
-    setStep(step + 1);
-    console.log(step);
+    if (
+      step === ISTEP.SPLASH &&
+      localStorage.getItem('like') &&
+      localStorage.getItem('dislike')
+    ) {
+      setStep(ISTEP.MENU_TAB);
+    } else {
+      setStep(step + 1);
+    }
   };
   const onBackScreen = () => {
     setStep(step - 1);
   };
+
+  const onChangeTab = (value: number) => {
+    setStep(value);
+  };
+
   const [step, setStep] = useState<number>(0);
   return (
     <Tabs
       onChange={key => {
         setStep(parseInt(key));
       }}
-      style={{ fontSize: 18, color: '#fff' }}
+      className="ant-tabs-bottom"
+      style={{ fontSize: 18, color: '#fff', height: '100vh' }}
       activeKey={step.toString()}
+      destroyInactiveTabPane
       tabBarStyle={{
-        display: [ISTEP.SPLASH, ISTEP.WELCOME].includes(step)
-          ? 'none'
-          : 'block',
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: -16,
-        zIndex: 2,
-        background: '#fff',
-        border: '3px solid #c0c3c4',
+        display: 'none',
+        position: 'fixed',
+        bottom: 0,
+        width: '100%',
+        backgroundColor: '#F8F9FA',
+        boxShadow: '0 0.5rem 1rem 0 rgb(44 51 73 / 60%)',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        transition: 'bottom 0.4s',
+        zIndex: 1060,
       }}
     >
       <TabPane key={ISTEP.SPLASH}>
@@ -66,6 +90,9 @@ const Home = () => {
       >
         <SettingTab onNextScreen={onNextScreen} onBackScreen={onBackScreen} />
       </TabPane>
+      <TabPane key={ISTEP.LIKE_DISH}>
+        <LikeDish onNextScreen={onNextScreen} onBackScreen={onBackScreen} />
+      </TabPane>
       <TabPane
         tab={
           <div style={{ textAlign: 'center' }}>
@@ -75,7 +102,38 @@ const Home = () => {
         }
         key={ISTEP.MENU_TAB}
       >
-        <MenuTab onNextScreen={onNextScreen} onBackScreen={onBackScreen} />
+        <MenuTab
+          onNextScreen={onNextScreen}
+          onBackScreen={onBackScreen}
+          onChangeTab={onChangeTab}
+          setIngredient={setIngredient}
+        />
+      </TabPane>
+      <TabPane
+        key={ISTEP.INGREDIENT}
+        tab={
+          <div style={{ textAlign: 'center' }}>
+            <CalendarOutlined style={{ fontSize: 24 }} />
+            <div>Lịch sử menu</div>
+          </div>
+        }
+      >
+        <Ingredient
+          onBackScreen={onBackScreen}
+          onChangeTab={onChangeTab}
+          ingredients={ingredients}
+        />
+      </TabPane>
+      <TabPane
+        key={ISTEP.MENU_HISTORY}
+        tab={
+          <div style={{ textAlign: 'center' }}>
+            <CalendarOutlined style={{ fontSize: 24 }} />
+            <div>Lịch sử menu</div>
+          </div>
+        }
+      >
+        <MenuHistory onBackScreen={onBackScreen} onChangeTab={onChangeTab} />
       </TabPane>
     </Tabs>
   );

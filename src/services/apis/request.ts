@@ -8,6 +8,10 @@ const catalogClient = axios.create({
   baseURL: apiServices.catalog,
 });
 
+const API = axios.create({
+  baseURL: 'http://10.10.20.37:8000',
+});
+
 const getAuthorization = () => {
   return userServices.isLoggedIn()
     ? `Bearer ${userServices.getAccessToken()}`
@@ -45,4 +49,5 @@ clients.forEach(client => {
 
 export default {
   catalogClient,
+  API,
 };

@@ -30,3 +30,30 @@ export interface IGetBrandResponse {
     };
   };
 }
+
+export interface IDish {
+  name: string;
+  image: string;
+  id: string;
+  category?: number | null;
+  ingredients?: {
+    name: string;
+    unit: string;
+    quantitative: number;
+
+    src: string;
+    description: string | null;
+  }[];
+}
+
+export interface IGetMealParams {
+  category?: number;
+  name?: string;
+}
+
+export interface IGetMenuParams {
+  history?: string[][];
+  current_menu?: string[];
+  loved?: string[];
+  allergic?: string[];
+}

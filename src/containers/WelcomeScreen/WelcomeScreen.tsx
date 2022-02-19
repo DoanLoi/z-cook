@@ -1,25 +1,7 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import {
-  Button,
-  Input,
-  Tabs,
-  Row,
-  Col,
-  Image,
-  Select,
-  Form,
-  Radio,
-  Space,
-  Modal,
-  Spin,
-} from 'antd';
-import {
-  ArrowRightOutlined,
-  ReloadOutlined,
-  PlusCircleOutlined,
-  ClockCircleOutlined,
-} from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Button } from 'antd';
 import './WelcomeScreen.scss';
+
 import background from 'assets/images/background.png';
 
 enum IStepWelcome {
@@ -47,7 +29,7 @@ const WelcomeScreen: React.FC<{
     <div
       className="welcome"
       style={{
-        height: '100vh',
+        height: '100%',
         width: '100%',
         background: '#3FC979',
         display: 'flex',
@@ -56,18 +38,27 @@ const WelcomeScreen: React.FC<{
     >
       <div
         style={{
-          height: '88vh',
+          height: '85%',
           display: 'flex',
           flexDirection: 'column',
           overflowY: 'scroll',
           scrollbarWidth: 'none',
         }}
       >
-        <div className="p-base mt-base">
-          <div style={{ color: '#fff', fontSize: 35, fontWeight: 'bold' }}>
-            Z-Cook
+        <div className="px-base mt-base ">
+          <div className="text-center">
+            <div
+              style={{
+                color: '#fff',
+                fontSize: 30,
+                fontWeight: 'bold',
+                lineHeight: 1,
+              }}
+            >
+              Z-Cook
+            </div>
+            <span>Hôm nay ăn gì?</span>{' '}
           </div>
-          <span>Hôm nay ăn gì?</span>
 
           <div
             style={{
@@ -81,12 +72,11 @@ const WelcomeScreen: React.FC<{
           >
             <img
               src={background}
-              style={{ borderRadius: 20, height: 150, width: 150 }}
+              style={{ borderRadius: 20, height: 200, width: 200 }}
             />
-            <div>Chào đầu bếp!</div>
+            <div>Z-cook chào bạn!</div>
             <div className="text-center">
-              Hãy cùng chúng tôi ghi chú một vài thông tin về khẩu vị của bạn
-              nhé.
+              Cho chúng tôi biết một vài thông tin nhé.
             </div>
           </div>
         </div>
